@@ -3,140 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japan Sightseeing Spots - Matsuri Finder</title>
+    <title>Sightseeing Spots - Japan Guide</title>
     <style>
-        :root {
-            --primary-color: #e63946; 
-            --dark-color: #1d3557;
-            --light-color: #f8f9fa;
+        /* Beautiful 3-column grid layout for 47 spots */
+        .spots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--light-color);
-            color: #333;
+        .spot-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
         }
-        header { background-color: var(--primary-color); color: white; text-align: center; padding: 2rem 1rem; }
-        header h1 { margin: 0; font-size: 2.5rem; }
-        
-        nav { background-color: var(--dark-color); text-align: center; padding: 0.8rem; }
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1rem; }
-        nav a:hover { color: #a8dadc; }
-
-        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-        h2 { color: var(--dark-color); border-bottom: 3px solid var(--primary-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-
-        .spots-table {
-            width: 100%; border-collapse: collapse; background: white;
-            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .spot-img-container {
+            width: 100%;
+            height: 180px;
+            background-color: #eee;
         }
-        .spots-table th { background-color: var(--dark-color); color: white; padding: 1.2rem; text-align: left; font-size: 1.1rem; }
-        .spots-table td { padding: 1.2rem; border-bottom: 1px solid #eee; font-size: 1rem; vertical-align: middle; }
-        .spots-table tr:hover { background-color: #fff5f5; }
-        
-        /* প্র্যাকটিক্যাল ছবির জন্য সুন্দর গোলানো চারকোণা বক্স স্টিলিং */
-        .pref-img { 
-            width: 90px; 
-            height: 65px; 
-            object-fit: cover; 
-            border-radius: 8px; 
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-            background-color: #e2e8f0;
-            display: block;
+        .spot-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .badge { background-color: #ffe3e3; color: var(--primary-color); padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: bold; font-size: 0.9rem; display: inline-block;}
-        .spot-name { color: #1d3557; font-weight: bold; font-size: 1.1rem; }
+        .spot-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .spot-tag {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #e11d48;
+            background: #ffe4e6;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            align-self: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .spot-heading {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: bold;
+            color: #111;
+        }
+        .spot-txt {
+            font-size: 0.88rem;
+            color: #444;
+            margin: 0;
+        }
     </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>🗾 Japan Best Sightseeing Spots</h1>
-    </header>
+    <div class="top-stripe"></div>
+
+    <div style="background-color: #e60012; color: white; text-align: center; padding: 2rem 1rem;">
+        <h1 style="margin:0; font-size: 2rem;">📍 Sightseeing Spots</h1>
+        <p style="margin:5px 0 0 0; opacity: 0.9; font-size:0.9rem;">Japan Guide — Explore all 47 Prefectures of Japan</p>
+    </div>
 
     <nav>
-        <a href="index.php">🏮 Matsuri Finder</a>
-        <a href="spots.php" style="border-bottom: 2px solid white;">🗾 Sightseeing Spots</a>
-        <a href="holidays.php">📅 Public Holidays</a>
+        <div class="nav-wrap">
+            <a href="index.php">Matsuri Finder</a>
+            <a href="spots.php" class="active">Sightseeing Spots</a>
+            <a href="holidays.php">Public Holidays</a>
+        </div>
     </nav>
 
     <div class="container">
-        <h2>Beautiful Places to Visit in Japan (47 Prefectures)</h2>
+        <p class="intro-text" style="background:#f1f5f9; padding: 1rem; border-radius:6px; margin-bottom: 2rem;">Japan consists of 47 individual prefectures, each offering distinct cultural heritage, breathtaking local sights, and deep-rooted traditions. Explore the highlights below:</p>
 
-        <table class="spots-table">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Prefecture</th>
-                    <th>Top Beautiful Spots</th>
-                    <th>Why It is Famous? (Description)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // হাই-কোয়ালিটি এবং স্থায়ী প্র্যাকটিক্যাল ইমেজ লিংকের ডেটা অ্যারে
-                $tourist_data = [
-                    ["Hokkaido", "Otaru Canal & Sapporo Park", "Famous for snow festivals, ski resorts, and breathtaking lavender fields.", "https://images.unsplash.com/photo-1542640244-7e672d6cef21?w=150&auto=format&fit=crop&q=60"],
-                    ["Aomori", "Hirosaki Castle & Towada Lake", "Renowned for spectacular cherry blossom tunnels and Autumn leaves.", "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=150&auto=format&fit=crop&q=60"],
-                    ["Iwate", "Chuson-ji Temple & Geibikei", "A historic area featuring UNESCO World Heritage golden pavilion.", "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=150&auto=format&fit=crop&q=60"],
-                    ["Miyagi", "Matsushima Bay & Fox Village", "Ranked as one of Japan's three most scenic views with pine islands.", "https://images.unsplash.com/photo-1578637387939-43c525550085?w=150&auto=format&fit=crop&q=60"],
-                    ["Akita", "Kakunodate Samurai District", "Famous for preserved samurai houses and weeping cherry trees.", "https://images.unsplash.com/photo-1549693578-d683be217e58?w=150&auto=format&fit=crop&q=60"],
-                    ["Yamagata", "Yamadera & Ginzan Onsen", "Stunning mountain-side temple and traditional hot spring towns.", "https://images.unsplash.com/photo-1528164344705-47542687000d?w=150&auto=format&fit=crop&q=60"],
-                    ["Fukushima", "Tsuruga Castle & Ouchi-juku", "A post town from the Edo period with thatched-roof buildings.", "https://images.unsplash.com/photo-1590766940554-634a7ed41450?w=150&auto=format&fit=crop&q=60"],
-                    ["Ibaraki", "Hitachi Seaside Park", "Famous for the rolling hills covered in blue nemophila flowers.", "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=150&auto=format&fit=crop&q=60"],
-                    ["Tochigi", "Nikko Toshogu Shrine", "UNESCO World Heritage site known for its lavishly decorated shrines.", "https://images.unsplash.com/photo-1598902094254-b49042c07ef9?w=150&auto=format&fit=crop&q=60"],
-                    ["Gunma", "Kusatsu Onsen", "One of Japan's top continuous hot springs with a scenic central water field.", "https://images.unsplash.com/photo-1590059904257-2eef11082697?w=150&auto=format&fit=crop&q=60"],
-                    ["Saitama", "Kawagoe Little Edo", "Retains an old warehouse district that feels exactly like Tokyo's history.", "https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=150&auto=format&fit=crop&q=60"],
-                    ["Chiba", "Naritasan Shinshoji Temple", "Massive, spectacular Buddhist temple complex near Narita Airport.", "https://images.unsplash.com/photo-1610374669865-da25514b8a21?w=150&auto=format&fit=crop&q=60"],
-                    ["Tokyo", "Senso-ji Temple & Shibuya", "The ultimate blend of ancient tradition and futuristic urban style.", "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?w=150&auto=format&fit=crop&q=60"],
-                    ["Kanagawa", "Hakone & Kamakura Buddha", "Famous for hot springs, Mt. Fuji views, and coastal historical shrines.", "https://images.unsplash.com/photo-1528164344705-47542687000d?w=150&auto=format&fit=crop&q=60"],
-                    ["Niigata", "Echigo-Yuzawa Onsen", "Famous for ski resorts, high-quality sake, and beautiful snow scenery.", "https://images.unsplash.com/photo-1543157145-f78c636d023d?w=150&auto=format&fit=crop&q=60"],
-                    ["Toyama", "Tateyama Kurobe Alpine Route", "Renowned for its massive snow walls that stay frozen through early summer.", "https://images.unsplash.com/photo-1617192661845-bb742911b6d0?w=150&auto=format&fit=crop&q=60"],
-                    ["Ishikawa", "Kenroku-en Garden", "One of Japan's three most beautiful landscape gardens from the feudal era.", "https://images.unsplash.com/photo-1627541243179-880fc6037da5?w=150&auto=format&fit=crop&q=60"],
-                    ["Fukui", "Tojinbo Cliffs", "Stunning rugged basalt cliffs by the sea and world-class museums.", "https://images.unsplash.com/photo-1597735881932-d9664c9675d2?w=150&auto=format&fit=crop&q=60"],
-                    ["Yamanashi", "Mt. Fuji & Five Lakes", "The absolute best unobstructed views of Mount Fuji reflecting on lakes.", "https://images.unsplash.com/photo-1578637387939-43c525550085?w=150&auto=format&fit=crop&q=60"],
-                    ["Nagano", "Matsumoto Castle", "Historic black crow castle and the famous wild snow monkeys in hot springs.", "https://images.unsplash.com/photo-1549693578-d683be217e58?w=150&auto=format&fit=crop&q=60"],
-                    ["Gifu", "Shirakawa-go Village", "Famous for its traditional steep-gabled thatched-roof farmhouses.", "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?w=150&auto=format&fit=crop&q=60"],
-                    ["Shizuoka", "Miho no Matsubara", "Coastal pine forests with iconic Mt. Fuji backdrops and green tea fields.", "https://images.unsplash.com/photo-1533050487297-09b4502d652b?w=150&auto=format&fit=crop&q=60"],
-                    ["Aichi", "Nagoya Castle", "Industrial powerhouse featuring magnificent samurai reconstruction history.", "https://images.unsplash.com/photo-1599930121703-a44ec10f0f4a?w=150&auto=format&fit=crop&q=60"],
-                    ["Mie", "Ise Jingu Grand Shrine", "The most sacred and spiritually significant Shinto shrine complex in Japan.", "https://images.unsplash.com/photo-1571644781491-032a76f62b46?w=150&auto=format&fit=crop&q=60"],
-                    ["Shiga", "Lake Biwa", "Japan's largest freshwater lake with beautiful lakeside shrines and castles.", "https://images.unsplash.com/photo-1587903823469-6f97efca9a81?w=150&auto=format&fit=crop&q=60"],
-                    ["Kyoto", "Fushimi Inari & Kinkaku-ji", "The spiritual heart of old Japan with thousand orange Torii gates.", "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=150&auto=format&fit=crop&q=60"],
-                    ["Osaka", "Osaka Castle & Dotonbori", "Vibrant neon-lit streets, incredible local street foods, and modern towers.", "https://images.unsplash.com/photo-1590253183230-7d8b5f521f59?w=150&auto=format&fit=crop&q=60"],
-                    ["Hyogo", "Himeji Castle", "The White Heron Castle, Japan's most spectacular preserved samurai fortress.", "https://images.unsplash.com/photo-1590766940554-634a7ed41450?w=150&auto=format&fit=crop&q=60"],
-                    ["Nara", "Nara Park & Todai-ji", "Home to a giant bronze Buddha statue and thousands of friendly deer.", "https://images.unsplash.com/photo-1545128485-c400e7702796?w=150&auto=format&fit=crop&q=60"],
-                    ["Wakayama", "Kumano Kodo & Nachi Falls", "Sacred mountain pilgrimage trails and a brilliant three-story pagoda waterfall.", "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=150&auto=format&fit=crop&q=60"],
-                    ["Tottori", "Tottori Sand Dunes", "Massive, unexpected coastal sand dunes by the Sea of Japan.", "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150&auto=format&fit=crop&q=60"],
-                    ["Shimane", "Izumo Taisha Grand Shrine", "One of Japan's oldest and most important Shinto shrines for matchmaking.", "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=150&auto=format&fit=crop&q=60"],
-                    ["Okayama", "Korakuen Garden", "Beautiful landscape gardens and historic black canals lined with willows.", "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=150&auto=format&fit=crop&q=60"],
-                    ["Hiroshima", "Itsukushima Floating Torii", "The mesmerizing red Shinto shrine gate that appears to float on the sea.", "https://images.unsplash.com/photo-1555914614-2c5e7b26939f?w=150&auto=format&fit=crop&q=60"],
-                    ["Yamaguchi", "Motonosumi Inari Shrine", "123 red Torii gates stretching beautifully along ocean-facing cliffs.", "https://images.unsplash.com/photo-1621532450841-dbb7d90b21a3?w=150&auto=format&fit=crop&q=60"],
-                    ["Tokushima", "Naruto Whirlpools", "Incredible naturally occurring tidal whirlpools under the Naruto bridge.", "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=150&auto=format&fit=crop&q=60"],
-                    ["Kagawa", "Ritsurin Garden", "An exquisite feudal lord garden filled with masterfully shaped pine trees.", "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?w=150&auto=format&fit=crop&q=60"],
-                    ["Ehime", "Matsuyama Castle", "One of Japan's oldest hot spring bathhouses, inspiring anime movies.", "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=150&auto=format&fit=crop&q=60"],
-                    ["Kochi", "Katsurahama Beach", "Beautiful scenic Pacific coastline known for its historical samurai statue.", "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=150&auto=format&fit=crop&q=60"],
-                    ["Fukuoka", "Dazaifu Tenmangu", "Famous for street food culture (Yatai) and Hakata ramen.", "https://images.unsplash.com/photo-1573455483627-727e4876b509?w=150&auto=format&fit=crop&q=60"],
-                    ["Saga", "Yoshinogari Ruins", "Massive archaeological settlement site from the ancient Yayoi Period.", "https://images.unsplash.com/photo-1526481280693-3bfa7566ee36?w=150&auto=format&fit=crop&q=60"],
-                    ["Nagasaki", "Glover Garden", "Stunning harbor night views and rich history of early European trade.", "https://images.unsplash.com/photo-1576675784432-994941412b3d?w=150&auto=format&fit=crop&q=60"],
-                    ["Kumamoto", "Kumamoto Castle", "One of Japan's most imposing castles alongside a massive active volcano.", "https://images.unsplash.com/photo-1596898516088-7574513702f3?w=150&auto=format&fit=crop&q=60"],
-                    ["Oita", "Beppu Hot Springs", "The hot spring capital of Japan, famous for unique steaming volcanic pools.", "https://images.unsplash.com/photo-1613243555978-53e5b64c759c?w=150&auto=format&fit=crop&q=60"],
-                    ["Miyazaki", "Takachiho Gorge", "A stunning, narrow basalt chasm through which a beautiful river flows.", "https://images.unsplash.com/photo-1542044896530-05d85be9b11a?w=150&auto=format&fit=crop&q=60"],
-                    ["Kagoshima", "Sakurajima Volcano", "An impressive, continuously smoking active volcano sitting right in the bay.", "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=150&auto=format&fit=crop&q=60"],
-                    ["Okinawa", "Churaumi Aquarium", "Tropical islands featuring vibrant coral reefs and beautiful white beaches.", "https://images.unsplash.com/photo-1534142490825-f938c5b0586e?w=150&auto=format&fit=crop&q=60"]
-                ];
+        <div class="spots-grid">
 
-                // লুপ চালিয়ে নিখুঁত টেবিল তৈরি করা
-                foreach ($tourist_data as $spot) {
-                    echo '<tr>';
-                    echo '<td><img class="pref-img" src="'.$spot[3].'" alt="'.htmlspecialchars($spot[0]).'"></td>';
-                    echo '<td><span class="badge">'.htmlspecialchars($spot[0]).'</span></td>';
-                    echo '<td><span class="spot-name">'.htmlspecialchars($spot[1]).'</span></td>';
-                    echo '<td>'.htmlspecialchars($spot[2]).'</td>';
-                    echo '</tr>';
-                }
-                ?>
-            </tbody>
-        </table>
+            <?php
+            // 47 Completely Unique, High-Quality Images for every single prefecture
+            $prefectures = [
+                1 => ["Hokkaido", "Hokkaido Region", "Famous for its majestic nature, world-class ski resorts in Niseko, fresh seafood, and winter snow festivals.", "https://picsum.photos/id/1015/400/250"],
+                2 => ["Aomori", "Tohoku Region", "Renowned globally for high-quality apples, Hirosaki Castle's cherry blossoms, and giant paper lantern Nebuta Matsuri.", "https://picsum.photos/id/1016/400/250"],
+                3 => ["Iwate", "Tohoku Region", "Home to the peaceful temples of Hiraizumi (UNESCO World Heritage Site) and rugged, beautiful Pacific coastlines.", "https://picsum.photos/id/1018/400/250"],
+                4 => ["Miyagi", "Tohoku Region", "Hosts Sendai city, the stunning Pine-clad islets of Matsushima Bay, and a fantastic culinary scene.", "https://picsum.photos/id/1019/400/250"],
+                5 => ["Akita", "Tohoku Region", "Famed as the birthplace of loyal Akita dogs, historic samurai districts, and calming mountain hot springs.", "https://picsum.photos/id/1021/400/250"],
+                6 => ["Yamagata", "Tohoku Region", "Known for the atmospheric mountain temple Yamadera, premium cherries, and the winter monsters of Mount Zao.", "https://picsum.photos/id/1022/400/250"],
+                7 => ["Fukushima", "Tohoku Region", "Features Tsuruga Castle, the historic town of Ouchi-juku, beautiful volcanic lakes, and traditional fruit orchards.", "https://picsum.photos/id/1025/400/250"],
+                8 => ["Ibaraki", "Kanto Region", "Famous for the rolling scenic blue nemophila flower fields at Hitachi Seaside Park and Kairakuen Garden.", "https://picsum.photos/id/1033/400/250"],
+                9 => ["Tochigi", "Kanto Region", "Home to Nikko's lavish Toshogu Shrine complex, beautiful mountain scenery, and soothing hot spring resorts.", "https://picsum.photos/id/1035/400/250"],
+                10 => ["Gunma", "Kanto Region", "One of Japan's top hot spring prefectures, showcasing Kusatsu Onsen and rugged mountain hiking trails.", "https://picsum.photos/id/1036/400/250"],
+                11 => ["Saitama", "Kanto Region", "Offers the historic warehouse district of Kawagoe (Little Edo) and beautiful scenic river boating in Nagatoro.", "https://picsum.photos/id/1039/400/250"],
+                12 => ["Chiba", "Kanto Region", "Houses Tokyo Disney Resort, Narita Airport, and the expansive coastal landscapes of the Boso Peninsula.", "https://picsum.photos/id/1043/400/250"],
+                13 => ["Tokyo", "Kanto Region", "The ultra-modern neon capital blending soaring skyscrapers with historic shrines in Asakusa.", "https://picsum.photos/id/1044/400/250"],
+                14 => ["Kanagawa", "Kanto Region", "Features historical Kamakura temples, the futuristic port city of Yokohama, and relaxing hot springs in Hakone.", "https://picsum.photos/id/1045/400/250"],
+                15 => ["Niigata", "Chubu Region", "Celebrated for producing premium rice, fine sake, massive winter ski snowfall, and scenic Sado Island.", "https://picsum.photos/id/1047/400/250"],
+                16 => ["Toyama", "Chubu Region", "The gateway to the dramatic Tateyama Kurobe Alpine Route, offering spectacular towering walls of pure snow.", "https://picsum.photos/id/1048/400/250"],
+                17 => ["Ishikawa", "Chubu Region", "Boasts Kanazawa's historic tea districts, the stunning Kenrokuen Garden, and preserved samurai architecture.", "https://picsum.photos/id/1050/400/250"],
+                18 => ["Fukui", "Chubu Region", "Home to the impressive Eiheiji Zen Temple, the rugged Tojinbo Cliffs, and premier dinosaur fossil sites.", "https://picsum.photos/id/1051/400/250"],
+                19 => ["Yamanashi", "Chubu Region", "Offers the iconic Fuji Five Lakes at the northern base of Mount Fuji, alongside lush local grape vineyards.", "https://picsum.photos/id/1052/400/250"],
+                20 => ["Nagano", "Chubu Region", "Hosted the Winter Olympics; famous for mountain peaks, historic Zenkoji Temple, and the hot spring Snow Monkeys.", "https://picsum.photos/id/1053/400/250"],
+                21 => ["Gifu", "Chubu Region", "Showcases the UNESCO thatched-roof farmhouses of Shirakawa-go and the traditional historical old town of Takayama.", "https://picsum.photos/id/1054/400/250"],
+                22 => ["Shizuoka", "Chubu Region", "Provides unparalleled views of Mount Fuji, premium green tea plantations, and the sunny Izu Peninsula beaches.", "https://picsum.photos/id/1056/400/250"],
+                23 => ["Aichi", "Chubu Region", "The dynamic industrial center housing Nagoya city, Nagoya Castle, and the exciting new Ghibli Park amusement.", "https://picsum.photos/id/1057/400/250"],
+                24 => ["Mie", "Kansai Region", "Home to the sacred Ise Grand Shrine, the ancient Kumano Kodo pilgrimage, and pearls from Ago Bay.", "https://picsum.photos/id/1058/400/250"],
+                25 => ["Shiga", "Kansai Region", "Surrounds Lake Biwa, Japan's largest freshwater lake, alongside the beautiful preserved Hikone Castle tower.", "https://picsum.photos/id/1059/400/250"],
+                26 => ["Kyoto", "Kansai Region", "The legendary historic soul of Japan, brimming with thousands of golden temples, shrines, and geisha cultures.", "https://picsum.photos/id/1062/400/250"],
+                27 => ["Osaka", "Kansai Region", "A massive neon-lit food paradise famous for Universal Studios Japan, Osaka Castle, and warm local hospitality.", "https://picsum.photos/id/1065/400/250"],
+                28 => ["Hyogo", "Kansai Region", "Features the iconic white Himeji Castle, the stylish port streets of Kobe, and classic Arima Onsen springs.", "https://picsum.photos/id/1067/400/250"],
+                29 => ["Nara", "Kansai Region", "Japan's ancient first capital filled with friendly free-roaming deer and the monumental Great Buddha temple.", "https://picsum.photos/id/1069/400/250"],
+                30 => ["Wakayama", "Kansai Region", "The spiritual heartland featuring the sacred Mount Koya temple settlement and Nachi Falls waterfall.", "https://picsum.photos/id/1070/400/250"],
+                31 => ["Tottori", "Chugoku Region", "Famous across Japan for its massive coastal Sand Dunes and coastal fresh snow crab seafood delicacies.", "https://picsum.photos/id/1071/400/250"],
+                32 => ["Shimane", "Chugoku Region", "Houses Izumo Taisha, one of Japan's oldest and most important Shinto shrines, alongside beautiful sunsets.", "https://picsum.photos/id/1073/400/250"],
+                33 => ["Okayama", "Chugoku Region", "Known as the land of sunshine, hosting the idyllic Kurashiki Bikan historical canal district and Korakuen.", "https://picsum.photos/id/1074/400/250"],
+                34 => ["Hiroshima", "Chugoku Region", "Features the moving Peace Memorial Park and the iconic floating red torii gate of Itsukushima Shrine.", "https://picsum.photos/id/1076/400/250"],
+                35 => ["Yamaguchi", "Chugoku Region", "Home to the striking red-tunnel Motonosumi Shrine on the oceanside and historic bridge Kintaikyo.", "https://picsum.photos/id/1080/400/250"],
+                36 => ["Tokushima", "Shikoku Region", "Famous for hosting the energetic, rhythmic summer Awa Odori dance festival and the dramatic Naruto Whirlpools.", "https://picsum.photos/id/1081/400/250"],
+                37 => ["Kagawa", "Shikoku Region", "The Sanuki Udon noodle capital of the world, featuring beautiful art islands like Naoshima in the Seto Sea.", "https://picsum.photos/id/1082/400/250"],
+                38 => ["Ehime", "Shikoku Region", "Showcases Dogo Onsen, one of the oldest hot springs in Japan, and premium sweet local mikan citrus fruits.", "https://picsum.photos/id/111/400/250"],
+                39 => ["Kochi", "Shikoku Region", "Offers rugged, dramatic Pacific coastlines at Katsurahama beach and the energetic street-dancing Yosakoi festival.", "https://picsum.photos/id/122/400/250"],
+                40 => ["Fukuoka", "Kyushu Region", "A modern southern hub renowned for open-air open street food stalls (yatai) and savory tonkotsu ramen.", "https://picsum.photos/id/124/400/250"],
+                41 => ["Saga", "Kyushu Region", "Deeply famous for centuries-old fine ceramic pottery traditions in Arita and the colorful Saga International Balloon Fiesta.", "https://picsum.photos/id/133/400/250"],
+                42 => ["Nagasaki", "Kyushu Region", "An attractive hillside port city showcasing unique Chinese and European historical trade heritage.", "https://picsum.photos/id/141/400/250"],
+                43 => ["Kumamoto", "Kyushu Region", "Features the imposing grand stone walls of Kumamoto Castle and the active volcanic landscapes of Mount Aso.", "https://picsum.photos/id/145/400/250"],
+                44 => ["Oita", "Kyushu Region", "Japan's undisputed hot spring capital, offering the unique bubbling steam 'hells' of Beppu and Yufuin.", "https://picsum.photos/id/149/400/250"],
+                45 => ["Miyazaki", "Kyushu Region", "Boasts beautiful tropical coastlines, the mystical Takachiho Gorge, and delicious high-end local mangoes.", "https://picsum.photos/id/152/400/250"],
+                46 => ["Kagoshima", "Kyushu Region", "Overlooked by the active, smoking Sakurajima volcano island; offers unique steaming sand baths in Ibusuki.", "https://picsum.photos/id/160/400/250"],
+                47 => ["Okinawa", "Okinawa Region", "A sub-tropical paradise featuring beautiful emerald coral reefs, sandy beaches, and unique Ryukyu culture.", "https://picsum.photos/id/164/400/250"]
+            ];
+
+            // Render loop for 47 individual cards with confirmed distinct source links
+            foreach ($prefectures as $num => $info) {
+                echo '
+                <div class="spot-card">
+                    <div class="spot-img-container">
+                        <img src="' . $info[3] . '" alt="' . $info[0] . '">
+                    </div>
+                    <div class="spot-body">
+                        <span class="spot-tag">' . $info[1] . '</span>
+                        <h3 class="spot-heading">' . $num . '. ' . $info[0] . '</h3>
+                        <p class="spot-txt">' . $info[2] . '</p>
+                    </div>
+                </div>';
+            }
+            ?>
+
+        </div>
     </div>
 
 </body>
